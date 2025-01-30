@@ -7,22 +7,25 @@ initXX; % Change this to the init file corresponding to your helicopter
 
 % Discrete time system model. x = [lambda r p p_dot]'
 delta_t	= 0.25; % sampling time
-A1 = [];
-B1 = [];
+A1 = [0 1 0 0;
+      0 0 -K_2 0;
+      0 0 0 1;
+      0 0 -K_1*K_pp -K_1*K_pd];
+B1 = [0; 0; 0; K_1*K_pp];
 
 % Number of states and inputs
 mx = size(A1,2); % Number of states (number of columns in A)
 mu = size(B1,2); % Number of inputs(number of columns in B)
 
 % Initial values
-x1_0 = ;                               % Lambda
-x2_0 = ;                               % r
-x3_0 = ;                               % p
-x4_0 = ;                               % p_dot
+x1_0 = pi;                             % Lambda
+x2_0 = 0;                              % r
+x3_0 = 0;                              % p
+x4_0 = 0;                              % p_dot
 x0 = [x1_0 x2_0 x3_0 x4_0]';           % Initial values
 
 % Time horizon and initialization
-N  = ;                                  % Time horizon for states
+N  = 100;                               % Time horizon for states
 M  = N;                                 % Time horizon for inputs
 z  = zeros(N*mx+M*mu,1);                % Initialize z for the whole horizon
 z0 = z;                                 % Initial value for optimization
