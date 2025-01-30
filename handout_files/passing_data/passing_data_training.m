@@ -36,7 +36,11 @@ time_steps = [0:h:T]';
 %   from Simulink, and finally plot data.
 
 % your code goes here
+to_slx = timeseries([x_travel_ref,x_elevation_ref],time_steps);
 
+f = figure()
+plot(ans)
+exportgraphics(f,'figure.eps')
 
 %% Fake-model parameters (You should not change this part)
 A = [-0.98, 0; 0, -0.9];
