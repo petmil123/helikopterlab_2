@@ -3,7 +3,9 @@
 % Updated spring 2018, Andreas L. Flåten
 
 %% Initialization and model definition
-initXX; % Change this to the init file corresponding to your helicopter
+init01; % Change this to the init file corresponding to your helicopter
+
+q = 0.12;
 
 % Discrete time system model. x = [lambda r p p_dot]'
 delta_t	= 0.25; % sampling time
@@ -31,8 +33,8 @@ z  = zeros(N*mx+M*mu,1);                % Initialize z for the whole horizon
 z0 = z;                                 % Initial value for optimization
 
 % Bounds
-ul 	    = ;                   % Lower bound on control
-uu 	    = ;                   % Upper bound on control
+ul 	    = -pi/6;                   % Lower bound on control
+uu 	    = pi/6;                   % Upper bound on control
 
 xl      = -Inf*ones(mx,1);              % Lower bound on states (no bound)
 xu      = Inf*ones(mx,1);               % Upper bound on states (no bound)
@@ -46,21 +48,21 @@ vub(N*mx+M*mu)  = 0;                    % We want the last input to be zero
 
 % Generate the matrix Q and the vector c (objecitve function weights in the QP problem) 
 Q1 = zeros(mx,mx);
-Q1(1,1) = ;                            % Weight on state x1
-Q1(2,2) = ;                            % Weight on state x2
-Q1(3,3) = ;                            % Weight on state x3
-Q1(4,4) = ;                            % Weight on state x4
-P1 = 0;                                % Weight on input
+Q1(1,1) = 2;                            % Weight on state x1
+Q1(2,2) = 0;                            % Weight on state x2
+Q1(3,3) = 0;                            % Weight on state x3
+Q1(4,4) = 0;                            % Weight on state x4
+P1 = 2*q;                                % Weight on input
 Q = gen_q(Q1,P1,N,M);                  % Generate Q, hint: gen_q
-c = ;                                  % Generate c, this is the linear constant term in the QP
+c = zeros(mx*N+mu*N,1);                                  % Generate c, this is the linear constant term in the QP
 
 %% Generate system matrixes for linear model
 Aeq = gen_aeq(A1,B1,N,mx,mu);             % Generate A, hint: gen_aeq
-beq = ;             % Generate b
+beq = zeros(mx*N,1);             % Generate b
 
 %% Solve QP problem with linear model
 tic
-[z,lambda] = quadprog(H,f,A1,B1,Aeq,beq,xl,xu,x0); % hint: quadprog. Type 'doc quadprog' for more info 
+[z,lambda] = quadprog(Q,c,[],[],Aeq,beq,vlb,vub); % hint: quadprog. Type 'doc quadprog' for more info 
 t1=toc;
 
 % Calculate objective value
