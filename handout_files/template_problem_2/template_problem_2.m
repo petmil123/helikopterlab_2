@@ -12,8 +12,8 @@ delta_t	= 0.25; % sampling time
 A1 = [0 1 0 0;
       0 0 -K_2 0;
       0 0 0 1;
-      0 0 -K_1*K_pp -K_1*K_pd];
-B1 = [0; 0; 0; K_1*K_pp];
+      0 0 -K_1*K_pp -K_1*K_pd] * delta_t + eye(4);
+B1 = [0; 0; 0; K_1*K_pp] * delta_t;
 
 % Number of states and inputs
 mx = size(A1,2); % Number of states (number of columns in A)
@@ -58,7 +58,8 @@ c = zeros(mx*N+mu*N,1);                                  % Generate c, this is t
 
 %% Generate system matrixes for linear model
 Aeq = gen_aeq(A1,B1,N,mx,mu);             % Generate A, hint: gen_aeq
-beq = zeros(mx*N,1);             % Generate b
+beq = zeros(mx*N,1);                      % Generate b
+beq(1:4,1) = A1*x0;
 
 %% Solve QP problem with linear model
 tic
