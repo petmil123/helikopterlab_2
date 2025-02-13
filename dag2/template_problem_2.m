@@ -5,7 +5,7 @@
 %% Initialization and model definition
 init01; % Change this to the init file corresponding to your helicopter
 
-q = 0.12;
+q = 1;
 
 % Discrete time system model. x = [lambda r p p_dot]'
 delta_t	= 0.25; % sampling time
@@ -111,3 +111,12 @@ ylabel('p')
 subplot(515)
 plot(t,x4,'m',t,x4','mo'),grid
 xlabel('tid (s)'),ylabel('pdot')
+
+%% Preparation of data for workspace
+slx_input = [t' u];
+ideal_data = [t; u'; x1'; x2'; x3'; x4'];
+
+save('optimization_data.mat', 'ideal_data');
+
+
+

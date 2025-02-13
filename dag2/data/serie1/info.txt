@@ -1,0 +1,12 @@
+Oppgave 10.2.2.7
+
+q = 0.12
+
+simdata-kolonner:
+1: tid
+2: travel
+3: travel rate
+4: pitch
+5: pitch rate
+6: elevation
+7: elevation rate
