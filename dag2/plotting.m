@@ -1,5 +1,5 @@
 %% Get the wanted files
-dir = "data/serie4/"; % Change this to the series you want. 
+dir = "data/serie1/"; % Change this to the series you want. 
 simdata = load(dir + "simdata.mat").ans;
 optdata = load(dir + "optimization_data.mat").ideal_data;
 
@@ -23,50 +23,48 @@ x4_opt = optdata(6,:);
 
 %% plot the experimental data
 figure(2)
-subplot(511)
+subplot(521)
 stairs(t_opt,u),grid
 xlim([0 min(t(size(t,2)), t_opt(size(t_opt, 2)))])
 ylabel('u')
-subplot(512)
+subplot(523)
 plot(t,x1,'m'),grid
 xlim([0 min(t(size(t,2)), t_opt(size(t_opt, 2)))])
 ylabel('lambda')
-subplot(513)
+subplot(525)
 plot(t,x2,'m'),grid
 xlim([0 min(t(size(t,2)), t_opt(size(t_opt, 2)))])
 ylabel('r')
-subplot(514)
+subplot(527)
 plot(t,x3,'m'),grid
 xlim([0 min(t(size(t,2)), t_opt(size(t_opt, 2)))])
 ylabel('p')
-subplot(515)
+subplot(529)
 plot(t,x4,'m'),grid
 xlabel('tid (s)'),ylabel('pdot')
 xlim([0 min(t(size(t,2)), t_opt(size(t_opt, 2)))])
-exportgraphics(gcf, dir + "experimental.pdf", 'ContentType', 'vector');
 
 %% Plot the optimization data with cutoff time
 
-figure(3)
-subplot(511)
+subplot(522)
 stairs(t_opt,u),grid
 xlim([0 min(t(size(t,2)), t_opt(size(t_opt, 2)))])
 ylabel('u')
-subplot(512)
+subplot(524)
 plot(t_opt,x1_opt,'m',t_opt,x1_opt,'mo'),grid
 xlim([0 min(t(size(t,2)), t_opt(size(t_opt, 2)))])
 ylabel('lambda')
-subplot(513)
+subplot(526)
 plot(t_opt,x2_opt,'m',t_opt,x2_opt','mo'),grid
 xlim([0 min(t(size(t,2)), t_opt(size(t_opt, 2)))])
 ylabel('r')
-subplot(514)
+subplot(528)
 plot(t_opt,x3_opt,'m',t_opt,x3_opt,'mo'),grid
 xlim([0 min(t(size(t,2)), t_opt(size(t_opt, 2)))])
 ylabel('p')
-subplot(515)
+subplot(5,2,10)
 plot(t_opt,x4_opt,'m',t_opt,x4_opt','mo'),grid
 xlim([0 min(t(size(t,2)), t_opt(size(t_opt, 2)))])
 xlabel('tid (s)'),ylabel('pdot')
-exportgraphics(gcf, dir + "optimization.pdf", 'ContentType', 'vector');
+exportgraphics(gcf, dir + "fig.pdf", 'ContentType', 'vector');
 
