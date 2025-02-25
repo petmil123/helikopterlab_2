@@ -34,7 +34,7 @@ z0 = z;                                 % Initial value for optimization
 
 % Bounds
 ul 	    = -pi/6;                   % Lower bound on control
-uu 	    = pi/6;                   % Upper bound on control
+uu 	    = pi/6;                    % Upper bound on control
 
 xl      = -Inf*ones(mx,1);              % Lower bound on states (no bound)
 xu      = Inf*ones(mx,1);               % Upper bound on states (no bound)
