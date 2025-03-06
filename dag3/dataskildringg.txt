@@ -1,0 +1,37 @@
+Serie 1:
+
+Q = diag([1,1,1,1]);
+R = diag([1]);
+
+Vi observerer at vi får utslag i pitch fra start. 
+Prøver å straffe pitchfeil hardere
+
+Serie 2:
+
+Q = diag([1,1,3,3]);
+R = diag([1]);
+
+Dette ble verre. Ting er stabilt, men bommer helt på halvturnen.
+Prøver å straffe lambda-avvik istedet.
+
+Serie 3:
+
+Q = diag([10 10 1 1]);
+R = diag([1]); 
+
+Observerer fra plott at systemet ikke henger med på notene.
+Prøver å straffe pådragsbruk mindre.
+
+Serie 4:
+
+Q = diag([10 10 1 1]);
+R = diag([.1]);
+
+Observerer bedring, men at pitch fortsatt ikke henger med. Prøver å likestille
+pitch og travel.
+
+Serie 5: 
+Q = diag([10 10 10 10]);
+R = diag([.1]);
+
+Prøver en siste med lite krav til deriverte
